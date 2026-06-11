@@ -1,0 +1,43 @@
+## Vendor Product Code
+
+Assign a **4-character prefix** to any supplier and let Odoo auto-generate
+unique, traceable product barcodes with a single click.
+
+---
+
+### Features
+
+- **Supplier Prefix** — Set a 4-character alphanumeric prefix on each vendor's contact form.
+- **One-Click Barcode Generation** — On the product form, click *Generate Barcode* to instantly create a barcode: `PREFIX + 5-digit sequence`.
+- **Auto-Incrementing Sequence** — Each vendor maintains its own counter, so every barcode is unique.
+- **Lock After Generation** — Once a barcode is generated, the field becomes read-only to prevent accidental edits.
+- **Validation** — Prefix is strictly validated to 4 alphanumeric characters (A–Z, 0–9).
+
+---
+
+### How It Works
+
+1. Open a **Vendor** (Contacts → Purchase tab) and enter a 4-character *Product Prefix* (e.g. `ACME`).
+2. Open any **Product** form and select the vendor in the new *Supplier* field.
+3. Click **Generate Barcode** — the barcode is set to `ACME00001`, `ACME00002`, … automatically.
+
+---
+
+### Configuration
+
+No configuration required. Install and use immediately.
+
+---
+
+### Technical Notes
+
+| Item | Detail |
+|---|---|
+| Odoo Version | 17.0 |
+| License | LGPL-3 |
+| Models extended | `product.template`, `res.partner` |
+| Dependencies | `base`, `purchase` |
+
+---
+
+*Developed by [Nodex Technologies LLC](https://nodex.ae/)*

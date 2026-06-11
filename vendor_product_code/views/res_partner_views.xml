@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_form_inherit_nx_vendor" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.nx_vendor_product_code</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='purchase']" position="inside">
+                <field name="nx_product_prefix" readonly="nx_is_generate"/>
+                <field name="nx_is_generate" invisible="1"/>
+                <field name="nx_product_sequence" readonly="1" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
