@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         Tree / List View
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <record id="inventory_fsn_data_report_view_tree" model="ir.ui.view">
+        <field name="name">inventory.fsn.data.report.tree</field>
+        <field name="model">inventory.fsn.data.report</field>
+        <field name="arch" type="xml">
+            <tree string="Inventory FSN Report" create="false" edit="false" delete="false">
+                <field name="internal_ref"   string="Internal Ref"/>
+                <field name="product_id"     string="Product"/>
+                <field name="category_id"    string="Category"/>
+                <field name="location_id"    string="Location"/>
+                <field name="opening_stock"  string="Opening Stock"  widget="float" digits="[16,2]"/>
+                <field name="closing_stock"  string="Closing Stock"  widget="float" digits="[16,2]"/>
+                <field name="average_stock"  string="Avg Stock"      widget="float" digits="[16,2]"/>
+                <field name="sale_qty"       string="Sale Qty"       widget="float" digits="[16,2]"/>
+                <field name="turnover_ratio" string="Turnover Ratio" widget="float" digits="[16,4]"/>
+                <field name="mark" string="FSN"
+                       decoration-success="mark == 'F'"
+                       decoration-warning="mark == 'S'"
+                       decoration-danger="mark  == 'N'"
+                       widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         Graph View  –  bar chart: product vs sale qty, grouped by FSN
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <record id="inventory_fsn_data_report_view_graph" model="ir.ui.view">
+        <field name="name">inventory.fsn.data.report.graph</field>
+        <field name="model">inventory.fsn.data.report</field>
+        <field name="arch" type="xml">
+            <graph string="Inventory FSN Report" type="bar" sample="0">
+                <field name="product_id"     type="row"/>
+                <field name="mark"           type="col"/>
+                <field name="sale_qty"       type="measure"/>
+                <field name="turnover_ratio" type="measure"/>
+                <field name="average_stock"  type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         Pivot View
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <record id="inventory_fsn_data_report_view_pivot" model="ir.ui.view">
+        <field name="name">inventory.fsn.data.report.pivot</field>
+        <field name="model">inventory.fsn.data.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Inventory FSN Report" sample="0">
+                <field name="category_id"   type="row"/>
+                <field name="mark"          type="col"/>
+                <field name="sale_qty"      type="measure"/>
+                <field name="average_stock" type="measure"/>
+                <field name="turnover_ratio" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         Search View
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <record id="inventory_fsn_data_report_view_search" model="ir.ui.view">
+        <field name="name">inventory.fsn.data.report.search</field>
+        <field name="model">inventory.fsn.data.report</field>
+        <field name="arch" type="xml">
+            <search string="FSN Report Search">
+                <field name="product_id"  string="Product"/>
+                <field name="category_id" string="Category"/>
+                <field name="location_id" string="Location"/>
+                <field name="mark"        string="FSN"/>
+
+                <separator/>
+
+                <filter name="filter_fast" string="Fast Moving (F)"
+                        domain="[('mark','=','F')]"/>
+                <filter name="filter_slow" string="Slow Moving (S)"
+                        domain="[('mark','=','S')]"/>
+                <filter name="filter_non"  string="Non Moving (N)"
+                        domain="[('mark','=','N')]"/>
+
+                <separator/>
+
+                <group expand="0" string="Group By">
+                    <filter name="group_by_product"  string="Product"
+                            context="{'group_by': 'product_id'}"/>
+                    <filter name="group_by_category" string="Category"
+                            context="{'group_by': 'category_id'}"/>
+                    <filter name="group_by_location" string="Location"
+                            context="{'group_by': 'location_id'}"/>
+                    <filter name="group_by_mark"     string="FSN"
+                            context="{'group_by': 'mark'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

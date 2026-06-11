@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; max-width: 860px; margin: 0 auto; padding: 20px; }
+        h1 { color: #1a3a52; border-bottom: 2px solid #4B3869; padding-bottom: 8px; }
+        h2 { color: #4B3869; margin-top: 30px; }
+        h3 { color: #2e86c1; }
+        .banner { background: linear-gradient(135deg, #2c1654, #4B3869); color: #fff; padding: 30px; border-radius: 8px; margin-bottom: 24px; }
+        .banner h1 { color: #fff; border-color: rgba(255,255,255,0.3); }
+        .banner p  { font-size: 1.1em; opacity: .9; }
+        .badge { display: inline-block; background: rgba(255,255,255,0.2); color: #fff; border-radius: 12px; padding: 3px 12px; font-size: .8em; margin: 3px; border: 1px solid rgba(255,255,255,0.4); }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+        .feature-card { background: #f5f0ff; border-left: 4px solid #4B3869; padding: 14px 16px; border-radius: 4px; }
+        .feature-card h3 { margin: 0 0 6px; font-size: .95em; color: #4B3869; }
+        .feature-card p { margin: 0; font-size: .9em; }
+        .fsn-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        .fsn-table th { background: #4B3869; color: #fff; padding: 10px 14px; text-align: left; }
+        .fsn-table td { padding: 9px 14px; border-bottom: 1px solid #ddd; }
+        .fsn-table tr:nth-child(even) td { background: #faf5ff; }
+        .tag-f { background:#C6EFCE; color:#006100; padding:3px 10px; border-radius:4px; font-weight:bold; }
+        .tag-s { background:#FFEB9C; color:#9C6500; padding:3px 10px; border-radius:4px; font-weight:bold; }
+        .tag-n { background:#FFC7CE; color:#9C0006; padding:3px 10px; border-radius:4px; font-weight:bold; }
+        table.tech { width:100%; border-collapse:collapse; margin-top:10px; }
+        table.tech th { background:#4B3869; color:#fff; padding:9px 12px; text-align:left; }
+        table.tech td { padding:8px 12px; border-bottom:1px solid #ddd; }
+        table.tech tr:nth-child(even) td { background:#faf5ff; }
+        code { background:#eee; padding:2px 6px; border-radius:3px; font-size:.9em; }
+        ol li, ul li { margin-bottom: 6px; }
+        footer { margin-top:40px; color:#888; font-size:.85em; border-top:1px solid #ddd; padding-top:12px; }
+    </style>
+</head>
+<body>
+
+<div class="banner">
+    <h1>📊 Inventory FSN Report</h1>
+    <p>Classify your stock as Fast, Slow, or Non-Moving — with PDF &amp; Excel export built in.</p>
+    <span class="badge">Odoo 17</span>
+    <span class="badge">Inventory / Stock</span>
+    <span class="badge">Free &amp; Open Source</span>
+    <span class="badge">LGPL-3</span>
+</div>
+
+<h2>Overview</h2>
+<p>
+    <strong>Inventory FSN Report</strong> brings classic FSN (Fast–Slow–Non-moving) inventory analysis
+    directly into Odoo 17. Using actual stock movement history, it calculates the turnover ratio for
+    every product/location combination and classifies each item so your procurement and warehouse teams
+    can act on real data — not guesswork.
+</p>
+
+<h2>Features</h2>
+<div class="feature-grid">
+    <div class="feature-card">
+        <h3>📅 Flexible Date Range</h3>
+        <p>Analyse any period — weekly, monthly, quarterly or custom — with simple Start/End date pickers.</p>
+    </div>
+    <div class="feature-card">
+        <h3>🔍 Powerful Filters</h3>
+        <p>Narrow results by specific Products, Product Categories, Companies, and Warehouses.</p>
+    </div>
+    <div class="feature-card">
+        <h3>🏷️ FSN Type Filter</h3>
+        <p>Show All items or drill into Fast, Slow, or Non-Moving items instantly from the wizard.</p>
+    </div>
+    <div class="feature-card">
+        <h3>📋 Colour-Coded List View</h3>
+        <p>Green badge for Fast, amber for Slow, red for Non-Moving — at a glance in the tree view.</p>
+    </div>
+    <div class="feature-card">
+        <h3>📈 Graph &amp; Pivot Views</h3>
+        <p>Bar chart grouped by FSN classification plus a pivot table for category-level analysis.</p>
+    </div>
+    <div class="feature-card">
+        <h3>📄 PDF Export</h3>
+        <p>Professional QWeb PDF report with header, data table, and colour-coded FSN legend.</p>
+    </div>
+    <div class="feature-card">
+        <h3>📊 Excel Export</h3>
+        <p>Formatted .xlsx file with title, period subtitle, colour-coded FSN cells, and numeric formatting.</p>
+    </div>
+    <div class="feature-card">
+        <h3>🏢 Multi-Company Ready</h3>
+        <p>Filter by one or more companies; warehouse selection automatically scopes the internal locations.</p>
+    </div>
+</div>
+
+<h2>FSN Classification Rules</h2>
+<table class="fsn-table">
+    <thead>
+        <tr><th>Class</th><th>Label</th><th>Turnover Ratio Condition</th><th>Interpretation</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span class="tag-f">F</span></td>
+            <td>Fast Moving</td>
+            <td>Turnover Ratio <strong>&gt; 3</strong></td>
+            <td>High-velocity items — ensure adequate stock levels</td>
+        </tr>
+        <tr>
+            <td><span class="tag-s">S</span></td>
+            <td>Slow Moving</td>
+            <td>Turnover Ratio <strong>between 1 and 3</strong></td>
+            <td>Moderate demand — review reorder points</td>
+        </tr>
+        <tr>
+            <td><span class="tag-n">N</span></td>
+            <td>Non Moving</td>
+            <td>Turnover Ratio <strong>≤ 1</strong></td>
+            <td>Dead stock — consider clearance or write-off</td>
+        </tr>
+    </tbody>
+</table>
+<p><strong>Formula:</strong> Turnover Ratio = Sale Qty ÷ Average Stock &nbsp;|&nbsp; Average Stock = (Opening Stock + Closing Stock) / 2</p>
+
+<h2>How It Works</h2>
+<ol>
+    <li>Go to <strong>Inventory → Reporting → FSN Report</strong>.</li>
+    <li>Set the <strong>Start Date</strong> and <strong>End Date</strong> for the analysis period.</li>
+    <li>Optionally select the <strong>FSN Type</strong>, products, categories, companies, or warehouses.</li>
+    <li>Click <strong>View Report</strong> to open the interactive tree + graph view inside Odoo.</li>
+    <li>Click <strong>PDF</strong> to download a formatted print-ready report.</li>
+    <li>Click <strong>Excel</strong> to download a colour-coded spreadsheet.</li>
+</ol>
+
+<h2>Technical Information</h2>
+<table class="tech">
+    <tr><th>Attribute</th><th>Value</th></tr>
+    <tr><td>Odoo Version</td><td>17.0 Community &amp; Enterprise</td></tr>
+    <tr><td>Technical Name</td><td><code>nx_inventory_fsn_report</code></td></tr>
+    <tr><td>Depends</td><td><code>stock</code>, <code>product</code></td></tr>
+    <tr><td>License</td><td>LGPL-3</td></tr>
+    <tr><td>Models</td><td><code>inventory.fsn.report.wizard</code> (TransientModel), <code>inventory.fsn.data.report</code> (TransientModel)</td></tr>
+    <tr><td>Views</td><td>Tree, Graph, Pivot, Search, Wizard Form</td></tr>
+    <tr><td>Exports</td><td>PDF (QWeb), Excel (xlsxwriter)</td></tr>
+</table>
+
+<h2>Installation</h2>
+<ol>
+    <li>Download and unzip into your Odoo <code>addons</code> directory.</li>
+    <li>Restart the Odoo server.</li>
+    <li>Enable Developer Mode.</li>
+    <li>Go to <strong>Apps → Update App List</strong>.</li>
+    <li>Search for <em>Inventory FSN Report</em> and click <strong>Install</strong>.</li>
+</ol>
+
+<h2>Support</h2>
+<p>
+    For questions or custom development, contact <strong>Nxtech Solutions</strong>
+    via the website or the Odoo Apps support form.
+</p>
+
+<footer>
+    &copy; 2024 Nxtech Solutions · License: LGPL-3 · Odoo 17.0
+</footer>
+
+</body>
+</html>

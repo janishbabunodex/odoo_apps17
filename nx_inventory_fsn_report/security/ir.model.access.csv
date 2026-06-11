@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inventory_fsn_report_wizard_user,inventory.fsn.report.wizard user,model_inventory_fsn_report_wizard,stock.group_stock_user,1,1,1,1
+access_inventory_fsn_report_wizard_manager,inventory.fsn.report.wizard manager,model_inventory_fsn_report_wizard,stock.group_stock_manager,1,1,1,1
+access_inventory_fsn_data_report_user,inventory.fsn.data.report user,model_inventory_fsn_data_report,stock.group_stock_user,1,1,1,1
+access_inventory_fsn_data_report_manager,inventory.fsn.data.report manager,model_inventory_fsn_data_report,stock.group_stock_manager,1,1,1,1

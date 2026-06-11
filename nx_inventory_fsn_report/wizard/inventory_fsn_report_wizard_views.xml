@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         Wizard Form View
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <record id="view_inventory_fsn_report_wizard_form" model="ir.ui.view">
+        <field name="name">inventory.fsn.report.wizard.form</field>
+        <field name="model">inventory.fsn.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Inventory FSN Report">
+                <sheet>
+                    <group>
+                        <!-- Left: DATE RANGE -->
+                        <group string="Date Range">
+                            <field name="date_start" string="Start Date"/>
+                            <field name="date_end"   string="End Date"/>
+                        </group>
+
+                        <!-- Right: FSN TYPE -->
+                        <group string="FSN Type">
+                            <field name="fsn_filter" string="Movement Type"
+                                   widget="radio"
+                                   options="{'horizontal': true}"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <!-- Left: FILTERS -->
+                        <group string="Filters">
+                            <field name="product_ids"  string="Products"
+                                   widget="many2many_tags"
+                                   options="{'no_open': True, 'no_create': True}"/>
+                            <field name="category_ids" string="Categories"
+                                   widget="many2many_tags"
+                                   options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+
+                        <!-- Right: DOMAINS -->
+                        <group string="Domains">
+                            <field name="company_ids"   string="Companies"
+                                   widget="many2many_tags"
+                                   options="{'no_open': True, 'no_create': True}"/>
+                            <field name="warehouse_ids" string="Warehouses"
+                                   widget="many2many_tags"
+                                   options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+
+                <footer>
+                    <button name="action_print_pdf"
+                            string="PDF"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-file-pdf-o"/>
+                    <button name="action_export_excel"
+                            string="Excel"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-file-excel-o"/>
+                    <button name="action_view_report"
+                            string="View Report"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-table"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         Window Action
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <record id="action_inventory_fsn_report_wizard" model="ir.actions.act_window">
+        <field name="name">Inventory FSN Report</field>
+        <field name="res_model">inventory.fsn.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_inventory_fsn_report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         Menu item  (Inventory ▸ Reporting ▸ FSN Report)
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <menuitem id="menu_inventory_fsn_report"
+              name="FSN Report"
+              parent="stock.menu_warehouse_report"
+              action="action_inventory_fsn_report_wizard"
+              sequence="50"/>
+
+</odoo>
