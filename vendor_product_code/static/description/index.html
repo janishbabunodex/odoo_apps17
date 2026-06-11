@@ -1,43 +1,280 @@
-## Vendor Product Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vendor Product Code</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; color: #333; background: #fff; }
 
-Assign a **4-character prefix** to any supplier and let Odoo auto-generate
-unique, traceable product barcodes with a single click.
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, #875A7B 0%, #5C3D5C 100%);
+            color: #fff;
+            padding: 56px 40px 48px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .hero p  { font-size: 17px; opacity: .85; max-width: 600px; margin: 0 auto 28px; line-height: 1.6; }
+        .badges span {
+            display: inline-block; margin: 4px 6px;
+            background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35);
+            border-radius: 20px; padding: 5px 16px; font-size: 13px; font-weight: 600;
+        }
 
----
+        /* ── Sections ── */
+        .section { padding: 52px 40px; max-width: 960px; margin: 0 auto; }
+        .section-title {
+            font-size: 22px; font-weight: 700; color: #875A7B;
+            border-left: 4px solid #875A7B; padding-left: 14px; margin-bottom: 32px;
+        }
 
-### Features
+        /* ── Feature cards ── */
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .feature-card {
+            border: 1px solid #eee; border-radius: 10px; padding: 24px 20px;
+            text-align: center; transition: box-shadow .2s;
+        }
+        .feature-card:hover { box-shadow: 0 4px 18px rgba(135,90,123,.15); }
+        .feature-icon { font-size: 34px; margin-bottom: 12px; }
+        .feature-card h3 { font-size: 15px; font-weight: 700; color: #875A7B; margin-bottom: 8px; }
+        .feature-card p  { font-size: 13px; color: #666; line-height: 1.55; }
 
-- **Supplier Prefix** — Set a 4-character alphanumeric prefix on each vendor's contact form.
-- **One-Click Barcode Generation** — On the product form, click *Generate Barcode* to instantly create a barcode: `PREFIX + 5-digit sequence`.
-- **Auto-Incrementing Sequence** — Each vendor maintains its own counter, so every barcode is unique.
-- **Lock After Generation** — Once a barcode is generated, the field becomes read-only to prevent accidental edits.
-- **Validation** — Prefix is strictly validated to 4 alphanumeric characters (A–Z, 0–9).
+        /* ── Flow ── */
+        .flow { display: flex; align-items: flex-start; gap: 0; flex-wrap: wrap; justify-content: center; }
+        .flow-step {
+            flex: 1; min-width: 160px; max-width: 200px;
+            text-align: center; padding: 0 12px; position: relative;
+        }
+        .flow-step:not(:last-child)::after {
+            content: "→";
+            position: absolute; right: -14px; top: 28px;
+            font-size: 22px; color: #875A7B; font-weight: 700;
+        }
+        .step-num {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: #875A7B; color: #fff;
+            font-size: 22px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 14px;
+        }
+        .flow-step h4 { font-size: 14px; font-weight: 700; color: #333; margin-bottom: 6px; }
+        .flow-step p  { font-size: 12.5px; color: #666; line-height: 1.5; }
 
----
+        /* ── Barcode demo ── */
+        .barcode-demo {
+            background: #f9f4f8; border: 1px solid #e0cedd;
+            border-radius: 12px; padding: 32px; text-align: center; margin-top: 0;
+        }
+        .barcode-demo .formula {
+            display: flex; align-items: center; justify-content: center;
+            gap: 12px; flex-wrap: wrap; margin-bottom: 20px;
+        }
+        .formula-box {
+            background: #875A7B; color: #fff;
+            border-radius: 8px; padding: 10px 22px;
+            font-size: 20px; font-weight: 700; letter-spacing: 2px;
+        }
+        .formula-plus { font-size: 28px; color: #875A7B; font-weight: 700; }
+        .formula-eq   { font-size: 22px; color: #555; font-weight: 700; }
+        .barcode-result {
+            font-family: 'Courier New', monospace;
+            font-size: 28px; font-weight: 700; color: #5C3D5C;
+            letter-spacing: 4px; background: #fff;
+            border: 2px dashed #875A7B; border-radius: 8px;
+            display: inline-block; padding: 10px 28px;
+        }
+        .barcode-caption { font-size: 13px; color: #888; margin-top: 10px; }
 
-### How It Works
+        /* ── Validation block ── */
+        .validation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .val-box {
+            border-radius: 8px; padding: 18px 20px;
+        }
+        .val-box.valid   { background: #edfaf1; border: 1px solid #b2dfca; }
+        .val-box.invalid { background: #fdecea; border: 1px solid #f5c6c2; }
+        .val-box h4 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+        .val-box.valid   h4 { color: #27ae60; }
+        .val-box.invalid h4 { color: #e74c3c; }
+        .val-item { font-family: monospace; font-size: 13px; margin: 4px 0; color: #444; }
 
-1. Open a **Vendor** (Contacts → Purchase tab) and enter a 4-character *Product Prefix* (e.g. `ACME`).
-2. Open any **Product** form and select the vendor in the new *Supplier* field.
-3. Click **Generate Barcode** — the barcode is set to `ACME00001`, `ACME00002`, … automatically.
+        /* ── Tech table ── */
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: #875A7B; color: #fff; padding: 10px 16px; text-align: left; font-weight: 600; }
+        td { padding: 10px 16px; border-bottom: 1px solid #eee; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background: #faf7fa; }
 
----
+        /* ── Footer ── */
+        .footer {
+            background: #5C3D5C; color: rgba(255,255,255,.75);
+            text-align: center; padding: 24px 40px; font-size: 13px;
+        }
+        .footer a { color: #D4B8C8; text-decoration: none; }
 
-### Configuration
+        @media (max-width: 600px) {
+            .flow-step:not(:last-child)::after { display: none; }
+            .validation-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
 
-No configuration required. Install and use immediately.
+<!-- ══ HERO ══════════════════════════════════════════════════════ -->
+<div class="hero">
+    <h1>&#x2BA9; Vendor Product Code</h1>
+    <p>Assign a 4-character prefix to any supplier and auto-generate unique,
+       traceable product barcodes with a single click — no configuration needed.</p>
+    <div class="badges">
+        <span>&#x2713; Odoo 17.0</span>
+        <span>&#x2713; LGPL-3</span>
+        <span>&#x2713; Purchase</span>
+        <span>&#x2713; Inventory</span>
+        <span>&#x2713; Zero Config</span>
+    </div>
+</div>
 
----
+<!-- ══ FEATURES ══════════════════════════════════════════════════ -->
+<div class="section">
+    <div class="section-title">Key Features</div>
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F3F7;</div>
+            <h3>Supplier Prefix</h3>
+            <p>Set a unique 4-character alphanumeric prefix on each vendor's contact form.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F4F1;</div>
+            <h3>One-Click Barcode</h3>
+            <p>Click <em>Generate Barcode</em> on the product form — done instantly.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F522;</div>
+            <h3>Auto Sequence</h3>
+            <p>Each vendor keeps its own counter — every barcode is globally unique.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F512;</div>
+            <h3>Lock on Generate</h3>
+            <p>Once generated the barcode field becomes read-only — no accidental edits.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x2714;</div>
+            <h3>Strict Validation</h3>
+            <p>Prefix must be exactly 4 alphanumeric characters — validated on save.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x26A1;</div>
+            <h3>Zero Config</h3>
+            <p>Install and use immediately — no settings, no wizards, no extra menus.</p>
+        </div>
+    </div>
+</div>
 
-### Technical Notes
+<!-- ══ MODULE FLOW ════════════════════════════════════════════════ -->
+<div style="background:#faf7fa; padding: 52px 40px;">
+<div style="max-width:960px; margin:0 auto;">
+    <div class="section-title">Module Flow</div>
+    <div class="flow">
 
-| Item | Detail |
-|---|---|
-| Odoo Version | 17.0 |
-| License | LGPL-3 |
-| Models extended | `product.template`, `res.partner` |
-| Dependencies | `base`, `purchase` |
+        <div class="flow-step">
+            <div class="step-num">1</div>
+            <h4>Open Vendor</h4>
+            <p>Go to <strong>Contacts</strong>, open a supplier and navigate to the <strong>Purchase</strong> tab.</p>
+        </div>
 
----
+        <div class="flow-step">
+            <div class="step-num">2</div>
+            <h4>Set Prefix</h4>
+            <p>Enter a <strong>4-character prefix</strong> in the <em>Product Prefix</em> field (e.g. <code>ACME</code>).</p>
+        </div>
 
-*Developed by [Nodex Technologies LLC](https://nodex.ae/)*
+        <div class="flow-step">
+            <div class="step-num">3</div>
+            <h4>Open Product</h4>
+            <p>Open any <strong>Product</strong> form and select the vendor in the new <em>Supplier</em> field.</p>
+        </div>
+
+        <div class="flow-step">
+            <div class="step-num">4</div>
+            <h4>Generate Barcode</h4>
+            <p>Click <strong>Generate Barcode</strong> — the barcode is created automatically.</p>
+        </div>
+
+        <div class="flow-step">
+            <div class="step-num">5</div>
+            <h4>Barcode Locked</h4>
+            <p>Barcode field becomes <strong>read-only</strong>; sequence auto-increments for next product.</p>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- ══ BARCODE DEMO ════════════════════════════════════════════════ -->
+<div class="section">
+    <div class="section-title">How the Barcode is Built</div>
+    <div class="barcode-demo">
+        <div class="formula">
+            <div class="formula-box">ACME</div>
+            <div class="formula-plus">+</div>
+            <div class="formula-box">00001</div>
+            <div class="formula-eq">=</div>
+            <div class="barcode-result">ACME00001</div>
+        </div>
+        <p class="barcode-caption">
+            Vendor Prefix (4 chars, uppercase) &nbsp;+&nbsp; Auto-Sequence (5 digits, zero-padded)<br/>
+            Next product for the same vendor → <strong>ACME00002</strong>, then <strong>ACME00003</strong> …
+        </p>
+    </div>
+</div>
+
+<!-- ══ VALIDATION ════════════════════════════════════════════════ -->
+<div style="background:#faf7fa; padding: 52px 40px;">
+<div style="max-width:960px; margin:0 auto;">
+    <div class="section-title">Prefix Validation Rules</div>
+    <div class="validation-grid">
+        <div class="val-box valid">
+            <h4>&#x2714; Valid Prefixes</h4>
+            <div class="val-item">ACME</div>
+            <div class="val-item">AB12</div>
+            <div class="val-item">9Z3X</div>
+            <div class="val-item">NODE</div>
+        </div>
+        <div class="val-box invalid">
+            <h4>&#x2718; Invalid Prefixes</h4>
+            <div class="val-item">ACM &nbsp;&nbsp;(only 3 chars)</div>
+            <div class="val-item">ACME1 &nbsp;(5 chars)</div>
+            <div class="val-item">AC-E &nbsp;&nbsp;(special char)</div>
+            <div class="val-item">ac me &nbsp;(space)</div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- ══ TECH INFO ══════════════════════════════════════════════════ -->
+<div class="section">
+    <div class="section-title">Technical Information</div>
+    <table>
+        <tr><th>Item</th><th>Detail</th></tr>
+        <tr><td>Odoo Version</td><td>17.0</td></tr>
+        <tr><td>License</td><td>LGPL-3</td></tr>
+        <tr><td>Category</td><td>Inventory / Purchase</td></tr>
+        <tr><td>Dependencies</td><td>base, purchase</td></tr>
+        <tr><td>Models Extended</td><td>product.template, res.partner</td></tr>
+        <tr><td>Views Extended</td><td>product.product_template_only_form_view, base.view_partner_form</td></tr>
+        <tr><td>New Fields on Product</td><td>nx_vendor_id (Supplier), nx_is_barcode (Is Barcode)</td></tr>
+        <tr><td>New Fields on Partner</td><td>nx_product_prefix, nx_product_sequence, nx_is_generate</td></tr>
+    </table>
+</div>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════ -->
+<div class="footer">
+    Developed by <a href="https://nodex.ae/" target="_blank">Nodex Technologies LLC</a>
+    &nbsp;·&nbsp; <a href="https://nodex.ae/" target="_blank">nodex.ae</a>
+</div>
+
+</body>
+</html>
