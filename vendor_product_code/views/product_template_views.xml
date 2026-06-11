@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_only_form_view_inherit_nx_vendor" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.nx_vendor_product_code</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Supplier field after Purchase Method -->
+            <field name="purchase_method" position="after">
+                <field name="nx_vendor_id"
+                       string="Supplier"
+                       options="{'no_open': True, 'no_create': True}"
+                       domain="[('supplier_rank', '>', 0)]"/>
+            </field>
+
+            <!-- Generate Barcode button after barcode field -->
+            <field name="barcode" position="after">
+                <field name="nx_is_barcode" invisible="1"/>
+                <button name="generate_product_barcode"
+                        type="object"
+                        string="Generate Barcode"
+                        icon="oi-arrow-right"
+                        class="btn-link ps-0"
+                        colspan="2"
+                        invisible="nx_is_barcode"/>
+            </field>
+
+            <!-- Make barcode readonly once generated -->
+            <field name="barcode" position="attributes">
+                <attribute name="readonly">nx_is_barcode</attribute>
+            </field>
+
+        </field>
+    </record>
+</odoo>
