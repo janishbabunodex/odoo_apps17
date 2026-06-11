@@ -28,9 +28,9 @@ Compatibility
 
 License: LGPL-3
     """,
-    'author': 'Nxtech Solutions',
-    'website': 'https://www.nxtechsolutions.com',
-    'support': 'support@nxtechsolutions.com',
+    'author': 'ASH',
+    'website': 'https://www.ash.com',
+    'support': 'support@ash.com',
     'license': 'LGPL-3',
     'images': [
         'static/description/banner.png',
