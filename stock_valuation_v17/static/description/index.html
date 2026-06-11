@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+
+<!-- ═══════════════  BANNER  ═══════════════ -->
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <img class="oe_picture oe_screenshot"
+             src="banner.png"
+             alt="Stock Valuation Banner"
+             style="width:100%;border-radius:8px;"/>
+    </div>
+</section>
+
+<!-- ═══════════════  INTRO  ═══════════════ -->
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#0054a6;">Stock Valuation</h2>
+        <h3 class="oe_slogan">Real-time total value on every stock picking &amp; move</h3>
+        <p class="oe_mt32 text-justify">
+            <strong>Stock Valuation</strong> by <strong>ASH</strong> extends Odoo's Inventory with
+            two computed fields that give you instant visibility into the monetary value of every
+            warehouse operation — without opening a separate accounting report.
+        </p>
+    </div>
+</section>
+
+<!-- ═══════════════  FEATURES  ═══════════════ -->
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#0054a6;">Key Features</h2>
+
+        <div class="oe_span6">
+            <div class="oe_demo oe_picture oe_screenshot" style="padding:20px;
+                 background:#f0f8ff;border-radius:8px;border-left:4px solid #0054a6;">
+                <h4 style="color:#0054a6;">📦 Picking Total Value</h4>
+                <p>
+                    A <strong>Total Value</strong> field is added directly on each
+                    <em>Stock Picking</em> (receipt, delivery, transfer).
+                    The value is the absolute sum of all linked move valuations,
+                    updated automatically whenever a move's valuation layer changes.
+                </p>
+            </div>
+        </div>
+
+        <div class="oe_span6">
+            <div class="oe_demo oe_picture oe_screenshot" style="padding:20px;
+                 background:#f0fff4;border-radius:8px;border-left:4px solid #00bcd4;">
+                <h4 style="color:#00897b;">🔄 Move-Level Valuation</h4>
+                <p>
+                    Each <em>Stock Move</em> gains a <strong>Total Value</strong> field
+                    computed from its <code>stock.valuation.layer</code> records.
+                    Both stored fields are dependency-tracked for zero manual refresh.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════  HOW IT WORKS  ═══════════════ -->
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#0054a6;">How It Works</h2>
+
+        <div class="oe_span4" style="text-align:center;padding:16px;">
+            <div style="font-size:40px;">🏭</div>
+            <h4>1. Validate a Transfer</h4>
+            <p>Confirm any stock picking (receipt, internal, delivery).</p>
+        </div>
+
+        <div class="oe_span4" style="text-align:center;padding:16px;">
+            <div style="font-size:40px;">💹</div>
+            <h4>2. Layers Are Created</h4>
+            <p>Odoo creates <code>stock.valuation.layer</code> records per move.</p>
+        </div>
+
+        <div class="oe_span4" style="text-align:center;padding:16px;">
+            <div style="font-size:40px;">✅</div>
+            <h4>3. Values Appear Instantly</h4>
+            <p>
+                <code>valuation_total</code> on moves and
+                <code>valuation_value</code> on the picking
+                are computed and stored automatically.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════  TECHNICAL  ═══════════════ -->
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#0054a6;">Technical Details</h2>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead>
+                <tr style="background:#0054a6;color:#fff;">
+                    <th style="padding:10px 14px;text-align:left;">Item</th>
+                    <th style="padding:10px 14px;text-align:left;">Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background:#f5f5f5;">
+                    <td style="padding:9px 14px;"><strong>Odoo Version</strong></td>
+                    <td style="padding:9px 14px;">17.0</td>
+                </tr>
+                <tr>
+                    <td style="padding:9px 14px;"><strong>Dependencies</strong></td>
+                    <td style="padding:9px 14px;"><code>stock</code>, <code>stock_account</code></td>
+                </tr>
+                <tr style="background:#f5f5f5;">
+                    <td style="padding:9px 14px;"><strong>Models Extended</strong></td>
+                    <td style="padding:9px 14px;"><code>stock.picking</code>, <code>stock.move</code></td>
+                </tr>
+                <tr>
+                    <td style="padding:9px 14px;"><strong>New Fields</strong></td>
+                    <td style="padding:9px 14px;">
+                        <code>valuation_value</code> (picking) &nbsp;|&nbsp;
+                        <code>valuation_total</code> (move)
+                    </td>
+                </tr>
+                <tr style="background:#f5f5f5;">
+                    <td style="padding:9px 14px;"><strong>Storage</strong></td>
+                    <td style="padding:9px 14px;">Both fields are <code>store=True</code> for fast list-view filtering</td>
+                </tr>
+                <tr>
+                    <td style="padding:9px 14px;"><strong>Author</strong></td>
+                    <td style="padding:9px 14px;">ASH</td>
+                </tr>
+                <tr style="background:#f5f5f5;">
+                    <td style="padding:9px 14px;"><strong>License</strong></td>
+                    <td style="padding:9px 14px;">LGPL-3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ═══════════════  FOOTER  ═══════════════ -->
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced" style="text-align:center;padding:24px 0;">
+        <h3 style="color:#0054a6;">Developed with ❤️ by <strong>ASH</strong></h3>
+        <p style="color:#607d8b;">
+            For support, customisation requests, or bug reports please contact us
+            through our website.
+        </p>
+    </div>
+</section>
+
+</body>
+</html>

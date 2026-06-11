@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── Add "Total Value" column to Stock Picking list view ── -->
+    <record id="view_picking_list_valuation" model="ir.ui.view">
+        <field name="name">stock.picking.list.valuation</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <!-- Insert after the "Scheduled Date" column -->
+            <xpath expr="//field[@name='scheduled_date']" position="after">
+                <field name="valuation_value"
+                       string="Total Value"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id'}"
+                       optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ── Add "Total Value" to Stock Picking form view (optional detail) ── -->
+    <record id="view_picking_form_valuation" model="ir.ui.view">
+        <field name="name">stock.picking.form.valuation</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Total Value in the stat-button area (top-right of form) -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" icon="fa-dollar" type="object" name="action_open_quants">
+                    <field name="valuation_value"
+                           string="Total Value"
+                           widget="statinfo"
+                           options="{'label_field': 'valuation_value'}"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
