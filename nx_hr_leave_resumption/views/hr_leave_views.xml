@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- =========================================================
+         Inherit HR Leave Form View (Employee — My Leaves)
+         ========================================================= -->
+    <record id="hr_leave_view_form_resumption" model="ir.ui.view">
+        <field name="name">hr.leave.view.form.resumption</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Smart button: View Resumption Leave -->
+            <xpath expr="//sheet" position="inside">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_resumption"
+                            string="View Resumption Leave"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-calendar-check-o"
+                            invisible="not has_resumption_leave"
+                            groups="hr_holidays.group_hr_holidays_user"/>
+                </div>
+            </xpath>
+
+            <!-- Resumption Date field after Leave End Date -->
+            <xpath expr="//field[@name='request_date_to']" position="after">
+                <field name="resumption_date"
+                       string="Resumption Date"
+                       widget="date"
+                       invisible="state == 'refuse'"
+                       placeholder="Expected return-to-work date"/>
+                <field name="has_resumption_leave" invisible="1"/>
+            </xpath>
+
+            <!-- Create Resumption Leave button in header -->
+            <xpath expr="//header" position="inside">
+                <button name="create_resumption_leave"
+                        string="Create Resumption Leave"
+                        type="object"
+                        class="btn-primary"
+                        icon="fa-calendar-plus-o"
+                        invisible="has_resumption_leave or not resumption_date or state != 'validate'"
+                        confirm="Are you sure you want to create a resumption leave record for this employee?"
+                        groups="hr_holidays.group_hr_holidays_user"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- =========================================================
+         Inherit HR Leave Form View (Manager — All Leaves)
+         ========================================================= -->
+    <record id="hr_leave_view_form_manager_resumption" model="ir.ui.view">
+        <field name="name">hr.leave.view.form.manager.resumption</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+        <field name="arch" type="xml">
+
+            <!-- Smart button: View Resumption Leave -->
+            <xpath expr="//sheet" position="inside">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_resumption"
+                            string="View Resumption Leave"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-calendar-check-o"
+                            invisible="not has_resumption_leave"
+                            groups="hr_holidays.group_hr_holidays_user"/>
+                </div>
+            </xpath>
+
+            <!-- Resumption Date field after Leave End Date -->
+            <xpath expr="//field[@name='request_date_to']" position="after">
+                <field name="resumption_date"
+                       string="Resumption Date"
+                       widget="date"
+                       invisible="state == 'refuse'"
+                       placeholder="Expected return-to-work date"/>
+                <field name="has_resumption_leave" invisible="1"/>
+            </xpath>
+
+            <!-- Create Resumption Leave button in header -->
+            <xpath expr="//header" position="inside">
+                <button name="create_resumption_leave"
+                        string="Create Resumption Leave"
+                        type="object"
+                        class="btn-primary"
+                        icon="fa-calendar-plus-o"
+                        invisible="has_resumption_leave or not resumption_date or state != 'validate'"
+                        confirm="Are you sure you want to create a resumption leave record for this employee?"
+                        groups="hr_holidays.group_hr_holidays_manager"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

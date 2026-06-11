@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- =========================================================
+         Inherit Employee Form View — add Rejoin & Ticket fields
+         ========================================================= -->
+    <record id="view_employee_form_nx_leave_resumption" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.nx_hr_leave_resumption</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="coach_id" position="after">
+                <field name="nx_rejoin_date" widget="date"/>
+                <field name="nx_ticket_eligible" widget="date"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

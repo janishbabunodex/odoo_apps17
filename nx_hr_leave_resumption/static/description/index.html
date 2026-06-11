@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; max-width: 860px; margin: 0 auto; padding: 20px; }
+        h1 { color: #1a5276; border-bottom: 2px solid #1a5276; padding-bottom: 8px; }
+        h2 { color: #2471a3; margin-top: 30px; }
+        h3 { color: #2e86c1; }
+        .banner { background: linear-gradient(135deg, #1a5276, #2e86c1); color: #fff; padding: 30px; border-radius: 8px; margin-bottom: 24px; }
+        .banner h1 { color: #fff; border-color: rgba(255,255,255,0.4); }
+        .banner p { font-size: 1.1em; opacity: .9; }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+        .feature-card { background: #eaf4fb; border-left: 4px solid #2e86c1; padding: 14px 16px; border-radius: 4px; }
+        .feature-card h3 { margin: 0 0 6px; font-size: .95em; color: #1a5276; }
+        .feature-card p { margin: 0; font-size: .9em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background: #2e86c1; color: #fff; padding: 10px; text-align: left; }
+        td { padding: 9px 10px; border-bottom: 1px solid #ddd; }
+        tr:nth-child(even) td { background: #f2f9fd; }
+        .badge { display: inline-block; background: #2e86c1; color: #fff; border-radius: 12px; padding: 3px 10px; font-size: .8em; margin: 2px; }
+        .note { background: #fef9e7; border-left: 4px solid #f1c40f; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+        code { background: #eee; padding: 2px 6px; border-radius: 3px; font-size: .9em; }
+        footer { margin-top: 40px; color: #777; font-size: .85em; border-top: 1px solid #ddd; padding-top: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="banner">
+    <h1>🗓️ HR Leave Resumption Date</h1>
+    <p>Track and manage employee rejoin &amp; resumption dates seamlessly within Odoo's Time Off module.</p>
+    <span class="badge">Odoo 17</span>
+    <span class="badge">HR / Time Off</span>
+    <span class="badge">Free &amp; Open Source</span>
+    <span class="badge">LGPL-3</span>
+</div>
+
+<h2>Overview</h2>
+<p>
+    <strong>HR Leave Resumption Date</strong> extends Odoo's native <em>Time Off</em> (hr_holidays) module to give
+    HR managers a clear, validated record of when employees are expected — and actually do — return to work after
+    approved leave. It also tracks flight-ticket eligibility automatically.
+</p>
+
+<h2>Features</h2>
+<div class="feature-grid">
+    <div class="feature-card">
+        <h3>📅 Resumption Date Field</h3>
+        <p>Add an expected return-to-work date directly on the leave request form, with full chatter tracking.</p>
+    </div>
+    <div class="feature-card">
+        <h3>✅ Date Validation</h3>
+        <p>Prevents saving a resumption date that falls before the leave end date, with a clear error message.</p>
+    </div>
+    <div class="feature-card">
+        <h3>➕ Create Resumption Leave</h3>
+        <p>One-click button (visible after leave approval) creates a linked Unpaid leave record for the resumption period.</p>
+    </div>
+    <div class="feature-card">
+        <h3>🔗 Smart Button</h3>
+        <p>"View Resumption Leave" smart button appears once a resumption record is linked, for quick navigation.</p>
+    </div>
+    <div class="feature-card">
+        <h3>👤 Rejoin Date on Employee</h3>
+        <p>Store the employee's actual rejoin date on their profile, with tracking history in the chatter.</p>
+    </div>
+    <div class="feature-card">
+        <h3>✈️ Flight Ticket Eligibility</h3>
+        <p>Automatically computes the flight ticket eligible date as two years after the rejoin date.</p>
+    </div>
+</div>
+
+<h2>How It Works</h2>
+<ol>
+    <li>HR manager opens an approved leave request.</li>
+    <li>Sets a <strong>Resumption Date</strong> on the leave form.</li>
+    <li>A confirmation warning is shown; the date is saved with tracking.</li>
+    <li>After validation, the <strong>Create Resumption Leave</strong> button appears in the header.</li>
+    <li>Clicking it creates a linked Unpaid leave record from the day after leave ends to the resumption date.</li>
+    <li>The <strong>View Resumption Leave</strong> smart button lets you navigate directly to the linked record.</li>
+    <li>On the Employee profile, set the <strong>Rejoin Date</strong>; the <strong>Flight Ticket Eligible Date</strong> is computed automatically.</li>
+</ol>
+
+<div class="note">
+    <strong>Note:</strong> The "Create Resumption Leave" button is only visible when the leave is in
+    <code>Validated</code> state and a Resumption Date has been set.
+</div>
+
+<h2>Technical Information</h2>
+<table>
+    <tr><th>Attribute</th><th>Value</th></tr>
+    <tr><td>Odoo Version</td><td>17.0</td></tr>
+    <tr><td>Module Technical Name</td><td><code>nx_hr_leave_resumption</code></td></tr>
+    <tr><td>Depends</td><td><code>hr_holidays</code></td></tr>
+    <tr><td>License</td><td>LGPL-3</td></tr>
+    <tr><td>Models Extended</td><td><code>hr.leave</code>, <code>hr.employee</code></td></tr>
+    <tr><td>New Fields on hr.leave</td><td>resumption_date, nx_resumption_leave_id, has_resumption_leave</td></tr>
+    <tr><td>New Fields on hr.employee</td><td>nx_rejoin_date, nx_ticket_eligible</td></tr>
+</table>
+
+<h2>Installation</h2>
+<ol>
+    <li>Download and unzip into your Odoo <code>addons</code> directory.</li>
+    <li>Restart the Odoo service.</li>
+    <li>Activate Developer Mode.</li>
+    <li>Go to <strong>Apps → Update App List</strong>.</li>
+    <li>Search for <em>HR Leave Resumption Date</em> and click <strong>Install</strong>.</li>
+</ol>
+
+<h2>Support &amp; Customisation</h2>
+<p>
+    For questions, bug reports, or custom development, please contact
+    <strong>Nxtech Solutions</strong> via the website or the Odoo Apps support form.
+</p>
+
+<footer>
+    &copy; 2024 Nxtech Solutions · License: LGPL-3 · Odoo 17.0
+</footer>
+
+</body>
+</html>
