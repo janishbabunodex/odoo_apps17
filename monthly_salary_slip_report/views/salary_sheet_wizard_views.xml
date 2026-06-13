@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_salary_sheet_wizard_form" model="ir.ui.view">
+        <field name="name">salary.sheet.wizard.form</field>
+        <field name="model">salary.sheet.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Print Salary Sheet">
+                <group>
+                    <label for="month" string="Month-Year" bold="1"/>
+                    <div>
+                        <field name="month" class="oe_inline" required="1"/>
+                        <field name="year" class="oe_inline" nolabel="1" required="1"/>
+                    </div>
+                </group>
+                <footer>
+                    <button name="action_print_excel_report"
+                            type="object"
+                            string="Print"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_salary_sheet_report" model="ir.actions.act_window">
+        <field name="name">Monthly Salary Slip Report</field>
+        <field name="res_model">salary.sheet.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hr_salary_report_root"
+              name="Reports"
+              parent="hr_payroll_community.menu_hr_payroll_community_root"
+              sequence="99"/>
+
+    <menuitem id="menu_salary_sheet_report"
+              name="Monthly Salary Slip Report"
+              parent="menu_hr_salary_report_root"
+              action="action_salary_sheet_report"
+              sequence="2"/>
+</odoo>

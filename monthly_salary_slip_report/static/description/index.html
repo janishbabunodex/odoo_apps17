@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Monthly Salary Slip Report</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; color: #222; background: #fff; }
+
+        .hero {
+            background: linear-gradient(135deg, #1F6F5C 0%, #123E33 100%);
+            color: #fff; padding: 56px 40px 48px; text-align: center;
+        }
+        .hero h1 { font-size: 38px; font-weight: 700; margin-bottom: 12px; }
+        .hero p  { font-size: 17px; opacity: .85; max-width: 640px; margin: 0 auto 28px; line-height: 1.65; }
+        .badges span {
+            display: inline-block; margin: 4px 6px;
+            background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.35);
+            border-radius: 20px; padding: 5px 16px; font-size: 13px; font-weight: 600;
+        }
+
+        .section { padding: 52px 40px; max-width: 980px; margin: 0 auto; }
+        .alt-bg  { background: #F0F8F6; }
+        .section-title {
+            font-size: 22px; font-weight: 700; color: #1F6F5C;
+            border-left: 4px solid #1F6F5C; padding-left: 14px; margin-bottom: 32px;
+        }
+
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 20px; }
+        .feature-card {
+            border: 1px solid #DCF0E9; border-radius: 10px; padding: 24px 18px;
+            text-align: center; background: #fff;
+        }
+        .feature-icon { font-size: 34px; margin-bottom: 12px; }
+        .feature-card h3 { font-size: 15px; font-weight: 700; color: #1F6F5C; margin-bottom: 8px; }
+        .feature-card p  { font-size: 13px; color: #555; line-height: 1.55; }
+
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0;
+        }
+        .flow-step { text-align: center; padding: 0 10px; position: relative; }
+        .flow-step:not(:last-child)::after {
+            content: "›"; position: absolute; right: -10px; top: 22px;
+            font-size: 28px; color: #1F6F5C; font-weight: 900;
+        }
+        .step-circle {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: #1F6F5C; color: #fff;
+            font-size: 20px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 14px;
+        }
+        .flow-step h4 { font-size: 13.5px; font-weight: 700; color: #1F6F5C; margin-bottom: 6px; }
+        .flow-step p  { font-size: 12px; color: #555; line-height: 1.5; }
+
+        /* sample report table */
+        .sample-wrap { overflow-x: auto; border: 1px solid #DCF0E9; border-radius: 10px; }
+        table.sample { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 640px; }
+        table.sample th { background: #1F6F5C; color: #fff; padding: 10px 14px; text-align: center; font-weight: 600; white-space: nowrap; }
+        table.sample td { padding: 8px 14px; border-bottom: 1px solid #EAF6F1; text-align: center; }
+        table.sample tr:nth-child(even) td { background: #F7FCFA; }
+        table.sample td.net { color: #1F6F5C; font-weight: 700; }
+        table.sample td.name { text-align: left; font-weight: 600; }
+
+        .caption { font-size: 13px; color: #555; margin-top: 14px; line-height: 1.6; }
+
+        table.info { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table.info th { background: #123E33; color: #fff; padding: 10px 16px; text-align: left; font-weight: 600; }
+        table.info td { padding: 10px 16px; border-bottom: 1px solid #eee; }
+        table.info tr:last-child td { border-bottom: none; }
+        table.info tr:nth-child(even) td { background: #F7FCFA; }
+
+        .footer {
+            background: #123E33; color: rgba(255,255,255,.75);
+            text-align: center; padding: 24px 40px; font-size: 13px;
+        }
+        .footer a { color: #9AD9C5; text-decoration: none; }
+
+        @media (max-width: 620px) {
+            .flow-step:not(:last-child)::after { display: none; }
+            .hero h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+    <h1>&#x1F4D1; Monthly Salary Slip Report</h1>
+    <p>Generate a complete, ready-to-share <strong>monthly salary sheet</strong> in
+       Excel format for all employees — with dynamic salary components and
+       one-click export, directly from Payroll.</p>
+    <div class="badges">
+        <span>&#x2713; Odoo 17.0</span>
+        <span>&#x2713; LGPL-3</span>
+        <span>&#x2713; Payroll</span>
+        <span>&#x2713; Excel Export</span>
+        <span>&#x2713; Dynamic Columns</span>
+    </div>
+</div>
+
+<!-- ══ FEATURES ══ -->
+<div class="section">
+    <div class="section-title">Key Features</div>
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F4C5;</div>
+            <h3>Month &amp; Year Selection</h3>
+            <p>Pick any month and year from a simple, intuitive wizard form.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F4CA;</div>
+            <h3>Excel Export</h3>
+            <p>Generates a polished .xlsx file with styled headers, borders and formatted amounts.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F501;</div>
+            <h3>Dynamic Components</h3>
+            <p>Automatically includes every salary rule found in the selected payslips — no hardcoded columns.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F3AF;</div>
+            <h3>Gross &amp; Net at End</h3>
+            <p>Gross and Net Salary columns are always positioned last for quick scanning.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F465;</div>
+            <h3>Employee Details</h3>
+            <p>Each row includes Employee Name, Code and Department alongside salary figures.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x2B07;</div>
+            <h3>Instant Download</h3>
+            <p>Click Print — the file is generated and downloaded immediately, no extra steps.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ══ MODULE FLOW ══ -->
+<div class="alt-bg">
+<div class="section">
+    <div class="section-title">Module Flow</div>
+    <div class="flow-grid">
+
+        <div class="flow-step">
+            <div class="step-circle">1</div>
+            <h4>Open Report</h4>
+            <p>Go to <strong>Payroll → Reports → Monthly Salary Slip Report</strong>.</p>
+        </div>
+
+        <div class="flow-step">
+            <div class="step-circle">2</div>
+            <h4>Select Month &amp; Year</h4>
+            <p>Choose the payroll period you want to generate the sheet for.</p>
+        </div>
+
+        <div class="flow-step">
+            <div class="step-circle">3</div>
+            <h4>Click Print</h4>
+            <p>The system fetches all <strong>confirmed (done)</strong> payslips for that period.</p>
+        </div>
+
+        <div class="flow-step">
+            <div class="step-circle">4</div>
+            <h4>Columns Built</h4>
+            <p>Salary components from those payslips become dynamic columns; Gross &amp; Net move to the end.</p>
+        </div>
+
+        <div class="flow-step">
+            <div class="step-circle">5</div>
+            <h4>Excel Downloaded</h4>
+            <p>A formatted <strong>.xlsx</strong> file downloads instantly, ready to share or print.</p>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- ══ SAMPLE REPORT ══ -->
+<div class="section">
+    <div class="section-title">Sample Report Output</div>
+    <div class="sample-wrap">
+        <table class="sample">
+            <tr>
+                <th>SL</th><th>Employee Name</th><th>Employee Code</th><th>Department</th>
+                <th>Basic</th><th>HRA</th><th>Deduction</th><th>Gross</th><th>Net Salary</th>
+            </tr>
+            <tr>
+                <td>1</td><td class="name">Ahmed Khan</td><td>EMP-001</td><td>Sales</td>
+                <td>5,000.00</td><td>1,000.00</td><td>200.00</td><td>6,000.00</td><td class="net">5,800.00</td>
+            </tr>
+            <tr>
+                <td>2</td><td class="name">Sara Ali</td><td>EMP-002</td><td>HR</td>
+                <td>4,500.00</td><td>900.00</td><td>180.00</td><td>5,400.00</td><td class="net">5,220.00</td>
+            </tr>
+            <tr>
+                <td>3</td><td class="name">John Smith</td><td>EMP-003</td><td>IT</td>
+                <td>6,200.00</td><td>1,200.00</td><td>300.00</td><td>7,400.00</td><td class="net">7,100.00</td>
+            </tr>
+            <tr>
+                <td>4</td><td class="name">Maria Lopez</td><td>EMP-004</td><td>Finance</td>
+                <td>3,800.00</td><td>760.00</td><td>150.00</td><td>4,560.00</td><td class="net">4,410.00</td>
+            </tr>
+        </table>
+    </div>
+    <p class="caption">
+        &#x26A1; Columns shown above (Basic, HRA, Deduction, Gross, Net Salary) are examples — actual
+        columns depend on the salary rules configured in your Payroll module and used in the
+        selected month's payslips.
+    </p>
+</div>
+
+<!-- ══ TECH INFO ══ -->
+<div class="alt-bg">
+<div class="section">
+    <div class="section-title">Technical Information</div>
+    <table class="info">
+        <tr><th>Item</th><th>Detail</th></tr>
+        <tr><td>Odoo Version</td><td>17.0</td></tr>
+        <tr><td>License</td><td>LGPL-3</td></tr>
+        <tr><td>Category</td><td>Human Resources / Payroll</td></tr>
+        <tr><td>Dependencies</td><td>hr_payroll_community</td></tr>
+        <tr><td>New Models</td><td>salary.sheet.wizard, report.monthly_salary_slip_report.salary_sheet_xlsx</td></tr>
+        <tr><td>Output Format</td><td>Excel (.xlsx) via xlsxwriter</td></tr>
+        <tr><td>Menu Location</td><td>Payroll → Reports → Monthly Salary Slip Report</td></tr>
+        <tr><td>Payslip Filter</td><td>Status = Done, within selected month/year date range</td></tr>
+    </table>
+</div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+    Developed by <a href="https://www.nodex.ae" target="_blank">Nodex Technologies LLC</a>
+    &nbsp;·&nbsp; <a href="https://www.nodex.ae" target="_blank">nodex.ae</a>
+</div>
+
+</body>
+</html>
