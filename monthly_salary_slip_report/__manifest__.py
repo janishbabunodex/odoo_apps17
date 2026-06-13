@@ -28,10 +28,10 @@ Use Case
 HR and Payroll teams who need a single consolidated salary sheet for payroll
 review, bank transfer processing, or auditing purposes.
     """,
-    'author': 'Nodex Technologies LLC',
-    'company': 'Nodex Technologies LLC',
-    'maintainer': 'Nodex Technologies LLC',
-    'website': 'https://www.nodex.ae',
+    'author': 'ASH',
+    'company': 'ASH',
+    'maintainer': 'ASH',
+    'website': 'https://www.ash.com',
     'depends': ['hr_payroll_community'],
     'data': [
         'security/ir.model.access.csv',
